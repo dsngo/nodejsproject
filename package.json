@@ -10,8 +10,10 @@
     "build:d": "webpack --env.dev",
     "dev": "webpack-dev-server --env.dev --open",
     "u:i": "yarn upgrade-interactive",
-    "deploy": "yarn build && firebase deploy",
-    "firebase-init": "firebase login && firebase init",
+    "firebase:init": "firebase login && firebase init",
+    "heroku:init": "",
+    "deploy:firebase": "yarn build && firebase deploy",
+    "deploy:heroku": "",
     "mongod": "C:\\\"Program Files\"\\MongoDB\\Server\\3.4\\bin\\mongod.exe",
     "mongo": "C:\\\"Program Files\"\\MongoDB\\Server\\3.4\\bin\\mongo.exe"
   },
