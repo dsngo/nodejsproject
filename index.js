@@ -1,5 +1,5 @@
 // INITIAL CONFIGURATION ===================
-const { app, staticD, sPORT, sIP, sLog } = require('./controllers/handleVars')
+const { app, staticD, sPORT, sIP, sLog } = require('./controllers/handleVars');
 const dbConfig = require('./controllers/databaseConfigs');
 const authConfig = require('./controllers/authConfigs');
 const { urlEncMw, flashMw } = require('./controllers/middlewares');
