@@ -5,7 +5,7 @@ const authConfig = require('./controllers/authConfigs');
 const { urlEncMw, flashMw } = require('./controllers/middlewares');
 const landingRoute = require('./routes/landing');
 const blogRoute = require('./routes/blog');
-const commentRoute = require('./routes/comments');
+// const commentRoute = require('./routes/comments');
 // DATABASE CONFIGURATION ==================
 dbConfig();
 // AUTHENTICATION CONFIGURATION ============

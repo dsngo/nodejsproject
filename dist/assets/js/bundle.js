@@ -1,1 +1,1 @@
-console.log('Hello World'); // eslint-disable-line
+console.log('Bundle file'); // eslint-disable-line
