@@ -6,12 +6,9 @@
       "env",
       {
         "targets": {
-          "browsers": [
-            "last 2 versions",
-            "safari >= 7"
-          ]
+          "browsers": ["last 2 versions", "safari >= 7"]
         },
-        "modules": false // Webpack 3 has its own es6 module compiler
+        "modules": false
       }
     ]
   ]

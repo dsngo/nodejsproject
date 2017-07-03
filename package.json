@@ -15,7 +15,8 @@
     "deploy:firebase": "yarn build && firebase deploy",
     "deploy:heroku": "",
     "mongod": "C:\\\"Program Files\"\\MongoDB\\Server\\3.4\\bin\\mongod.exe",
-    "mongo": "C:\\\"Program Files\"\\MongoDB\\Server\\3.4\\bin\\mongo.exe"
+    "mongo": "C:\\\"Program Files\"\\MongoDB\\Server\\3.4\\bin\\mongo.exe",
+    "lint": "eslint --fix app/** controllers/** models/** routes/**"
   },
   "dependencies": {
     "axios": "^0.16.2",
