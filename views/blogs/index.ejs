@@ -1,0 +1,19 @@
+<% include ../partials/header %>
+
+<h1>Sunshine Blog</h1>
+<p>I want to say many things</p>
+<p><a href="/blogs/new">Add new blog</a></p>
+
+<% allBlogs.map(blog => { %>
+<div>
+  <img src="<%= blog.image %>" />
+  <h4>
+    <%= blog.title %>
+  </h4>
+</div>
+<p>
+  <a href="/blogs/<%= blog._id %>">More Info</a>
+</p>
+<% }); %>
+
+<% include ../partials/footer %>

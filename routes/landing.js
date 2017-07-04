@@ -1,17 +1,23 @@
 const router = require('express').Router();
-const { renderReg, handleRegister } = require('../controllers/handleRegister');
-const { loginAuth, handleLogin } = require('../controllers/handleLogin');
-const handleLogout = require('../controllers/handleLogout');
+const {
+  loginAuth,
+  renderIndex,
+  renderSignUp,
+  renderLogin,
+  handleSignUp,
+  handleLogin,
+  handleLogout,
+} = require('../controllers/handleLanding');
 
-// ROOT ROUTE
-router.get('/', (rq, rs) => rs.render('home.ejs'));
-// Register route
-router.get('/register', renderReg);
-router.post('/register', handleRegister);
-// Login route
-router.get('/login', (rq, rs) => rs.render('login'));
+// INDEX
+router.get('/', renderIndex);
+// SIGNUP
+router.get('/signup', renderSignUp);
+router.post('/signup', handleSignUp);
+// LOGIN
+router.get('/login', renderLogin);
 router.post('/login', loginAuth(), handleLogin);
-// Logout route
+// LOGOUT
 router.get('/logout', handleLogout);
 
 module.exports = router;

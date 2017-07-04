@@ -1,21 +1,26 @@
 const router = require('express').Router();
-const { renderReg, handleRegister } = require('../controllers/handleRegister');
-const { loginAuth, handleLogin } = require('../controllers/handleLogin');
-const handleLogout = require('../controllers/handleLogout');
+const { isLoggedIn } = require('../controllers/middlewares');
+const {
+  checkBlogOwnership,
+  renderIndexBlog,
+  renderCreateBlog,
+  renderEditBlog,
+  createBlog,
+  readBlog,
+  updateBlog,
+  destroyBlog,
+} = require('../controllers/handleBlogPost');
 
 // INDEX - Show all blogs
-router.get('/', (rq, rs) => {
-  Blog.find({}, (err, allBlogs)=>{
-    err ? console.log(err) : rs.render('blog.ejs', { allBlogs })
-  })
-});
-// Register route
-router.get('/register', renderReg);
-router.post('/register', handleRegister);
-// Login route
-router.get('/login', (rq, rs) => rs.render('login'));
-router.post('/login', loginAuth(), handleLogin);
-// Logout route
-router.get('/logout', handleLogout);
-
+router.get('/', renderIndexBlog);
+// CREATE
+router.get('/new', isLoggedIn, renderCreateBlog);
+router.post('/', createBlog);
+// READ
+router.get('/:id', readBlog);
+// UPDATE
+router.get('/:id/edit', checkBlogOwnership, renderEditBlog);
+router.put('/:id', checkBlogOwnership, updateBlog);
+// DESTROY
+router.delete('/:id', checkBlogOwnership, destroyBlog);
 module.exports = router;
