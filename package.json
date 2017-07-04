@@ -4,6 +4,10 @@
   "main": "index.js",
   "author": "Daniel <daniel.dungngo@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": "8.x",
+    "npm": "5.x"
+  },
   "scripts": {
     "start": "node index",
     "build": "webpack -p --env.prod",

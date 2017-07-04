@@ -2,26 +2,19 @@ const router = require('express').Router();
 const { isLoggedIn } = require('../controllers/middlewares');
 const {
   checkCommentOwnership,
-  renderIndexComment,
   renderCreateComment,
   renderEditComment,
   createComment,
-  readComment,
   updateComment,
   destroyComment,
 } = require('../controllers/handleComment');
-
-// INDEX - Show all blogs
-router.get('/', renderIndexComment);
 // CREATE
 router.get('/new', isLoggedIn, renderCreateComment);
-router.post('/', createComment);
-// READ
-router.get('/:id', readComment);
+router.post('/', isLoggedIn, createComment);
 // UPDATE
-router.get('/:id/edit', checkCommentOwnership, renderEditComment);
-router.put('/:id', checkCommentOwnership, updateComment);
+router.get('/:comment_id/edit', checkCommentOwnership, renderEditComment);
+router.put('/:comment_id', checkCommentOwnership, updateComment);
 // DESTROY
-router.delete('/:id', checkCommentOwnership, destroyComment);
+router.delete('/:comment_id', checkCommentOwnership, destroyComment);
 
 module.exports = router;

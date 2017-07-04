@@ -6,8 +6,10 @@ const { urlEncMw, flashMw } = require('./controllers/middlewares');
 const landingRoute = require('./routes/landing');
 const blogRoute = require('./routes/blogs');
 const commentRoute = require('./routes/comments');
+const seedDB = require('./seedDB');
 // DATABASE CONFIGURATION ==================
 dbConfig();
+seedDB(); // Seed the database
 // AUTHENTICATION CONFIGURATION ============
 authConfig();
 // EXPRESS CONFIGURATION ===================

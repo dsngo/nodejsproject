@@ -42,7 +42,7 @@ module.exports = env => {
       }),
     ],
   };
-  // Production config
+  // Production configurations
   if (env.prod) {
     config.plugins.push(
       new webpack.DefinePlugin({
@@ -61,7 +61,7 @@ module.exports = env => {
     config.devtool = 'hidden-source-map';
     config.output.pathinfo = false;
   }
-  // Development config
+  // Development configurations
   if (env.dev) {
     config.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({

@@ -1,10 +1,11 @@
 /* eslint no-console:0 */
-const dbConfig = require('./controllers/databaseConfigs');
-
 const Blog = require('./models/Blog');
 const Comment = require('./models/Comment');
 
+const dbConfig = require('./controllers/databaseConfigs');
+
 dbConfig();
+
 const data = [
   {
     title: 'BLOG1',
@@ -29,33 +30,24 @@ const data = [
   },
 ];
 
-// const promise = () =>
-//   data.map(seed =>
-//     Blog.create(seed)
-//       .then(() => console.log('create a blog'))
-//       .catch(e => console.log(e))
-//       .then(() =>
-//         Comment.create({
-//           text: 'Something something good',
-//           author: 'Michelle',
-//         })
-//       )
-//       .catch(e => console.log(e))
-//   );
+const addSeeds = () =>
+  data.map(async seed => {
+    const newBlog = await Blog.create(seed);
+    console.log('create a blog!');
+    newBlog.comments.push(
+      await Comment.create({
+        text: 'Something something good',
+        author: 'Michelle',
+      })
+    );
+    return newBlog.save();
+  });
 
-// Blog.create(data[0]).then(r => console.log(r)).catch(e => console.log(e));
-// Blog.remove({}).then(console.log('removed all blogs'));
-// Comment.remove({}).then(console.log('removed all comments'));
+const seedDB = async () => {
+  await Blog.remove();
+  await Comment.remove();
+  console.log('remove blogs and comments');
+  return addSeeds();
+};
 
-function seedDB() {
-  Blog.remove()
-    .then(console.log('blogs removed'))
-    .then(Comment.remove())
-    .then(console.log('comments removed'))
-    .then(data.map(seed => Blog.create(seed)))
-    .then(Promise.all)
-    .catch(console.log);
-}
-
-seedDB();
-module.exports = seedDB;
+seedDB().catch(console.log);
