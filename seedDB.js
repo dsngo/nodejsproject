@@ -32,13 +32,13 @@ const data = [
 const addSeeds = () =>
   data.map(async seed => {
     const newBlog = await Blog.create(seed);
-    console.log('create a blog!');
     newBlog.comments.push(
       await Comment.create({
         text: 'Something something good',
         author: 'Michelle',
       })
     );
+    console.log('create a blog!');
     return newBlog.save();
   });
 
