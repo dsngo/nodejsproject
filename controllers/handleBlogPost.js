@@ -2,32 +2,27 @@
 const Blog = require('../models/Blog');
 
 // CHECK
-const checkBlogOwnership = (rq, rs, next) => {
+const checkBlogOwnership = async (rq, rs, next) => {
   if (!rq.isAuthenticated()) {
     rq.flash('error', 'Login required');
     return rs.redirect('back');
   }
-  return Blog.findById(rq.params.id)
-    .then(
-      foundBlog =>
-        foundBlog.author.id.equals(rq.user._id)
-          ? next()
-          : (rq.flash('error', 'Permission denied'), rs.redirect('back'))
-    )
-    .catch(() => {
-      rq.flash('error', 'Blog not found');
-      rs.redirect('back');
-    });
+  const foundBlog = await Blog.findById(rq.params.id);
+  if (!foundBlog.author.id.equals(rq.user._id)) {
+    rq.flash('error', 'Permission denied');
+    return rs.redirect('back');
+  }
+  return next();
 };
 // RENDER
-const renderIndexBlog = (rq, rs) => {
-  Blog.find({}, (e, allBlogs) => {
-    if (e) {
-      rq.flash('error', e.message);
-      return rs.redirect('back');
-    }
+const renderIndexBlog = async (rq, rs) => {
+  try {
+    const allBlogs = await Blog.find();
     return rs.render('blogs/index', { allBlogs });
-  });
+  } catch (e) {
+    rq.flash('error', e.message);
+    return rq.redirect('back');
+  }
 };
 const renderCreateBlog = (rq, rs) => rs.render('blogs/new');
 const renderEditBlog = (rq, rs) => rs.render('blogs/edit');
