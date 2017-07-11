@@ -1,5 +1,10 @@
 {
   "ignore": "node_modules",
+  "env": {
+    "test": {
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  },
   "presets": [
     "react",
     [
@@ -8,10 +13,14 @@
         "targets": {
           "browsers": ["last 2 versions", "safari >= 7"]
         },
-        "modules": false,
-        "useBuiltIns": true
+        "loose": true,
+        "modules": false
       }
     ]
   ],
-  "plugins": [["transform-object-rest-spread", { "useBuiltIns": true }]]
+  "plugins": [
+    ["react-hot-loader/babel"],
+    ["transform-class-properties"],
+    ["transform-object-rest-spread", { "useBuiltIns": true }]
+  ]
 }

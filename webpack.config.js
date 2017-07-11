@@ -5,10 +5,15 @@ const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = env => {
   const config = {
-    entry: {
-      // vendor: [resolve(__dirname, 'app/vendor')],
-      app: resolve(__dirname, 'app/index.jsx'),
-    },
+    entry: [
+      'react-hot-loader/patch',
+      'webpack-dev-server/client?http://localhost:9090',
+      'webpack/hot/only-dev-server',
+      {
+        // vendor: [resolve(__dirname, 'app/vendor')],
+        app: resolve(__dirname, 'app/index.jsx')
+      },
+    ],
     output: {
       path: resolve(__dirname, 'dist'),
       filename: `assets/js/[name]-bundle.js`,
@@ -17,10 +22,17 @@ module.exports = env => {
     },
     devtool: 'cheap-module-eval-source-map',
     devServer: {
+      hot: true,
+      port: 9090,
       historyApiFallback: true,
+      // publicPath: '/dist/',
     },
     resolve: {
       extensions: ['.json', '.js', '.jsx'],
+    },
+    stats: {
+      colors: true,
+      reasons: true,
     },
     module: {
       rules: [
@@ -60,10 +72,13 @@ module.exports = env => {
     );
     config.devtool = 'hidden-source-map';
     config.output.pathinfo = false;
+    config.stats.chunks = false;
   }
   // Development configurations
   if (env.dev) {
     config.plugins.push(
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.NamedModulesPlugin(),
       new webpack.optimize.CommonsChunkPlugin({
         name: 'manifest',
         children: true,
