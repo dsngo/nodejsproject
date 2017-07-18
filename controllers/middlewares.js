@@ -1,5 +1,5 @@
-/* eslint no-underscore-dangle: "off" */
-const bodyParser = require('body-parser');
+/* eslint no-underscore-dangle: 0, no-param-reassign:0 */
+const { bodyParser } = require('./handleVars');
 
 const urlEncMw = bodyParser.urlencoded({ extended: true });
 const flashMw = (rq, rs, next) => {

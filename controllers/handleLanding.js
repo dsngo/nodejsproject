@@ -1,4 +1,4 @@
-const passport = require('passport');
+const { passport } = require('./handleVars');
 const User = require('../models/User');
 
 const authStrategy = 'local';

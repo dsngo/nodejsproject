@@ -17,7 +17,7 @@ module.exports = env => {
     output: {
       path: resolve(__dirname, 'dist'),
       filename: `assets/js/[name]-bundle.js`,
-      publicPath: '',
+      publicPath: '/dist/',
       pathinfo: true,
     },
     devtool: 'cheap-module-eval-source-map',
@@ -25,7 +25,7 @@ module.exports = env => {
       hot: true,
       port: devPort,
       historyApiFallback: true,
-      // publicPath: '/dist/',
+      publicPath: '/dist/',
     },
     resolve: {
       extensions: ['.json', '.js', '.jsx'],
@@ -38,7 +38,10 @@ module.exports = env => {
       rules: [
         {
           test: /\.(js|jsx)$/,
-          include: resolve(__dirname, 'app'),
+          include: [
+            resolve(__dirname, 'app'),
+            resolve('node_modules/preact-compat/src'),
+          ],
           use: 'babel-loader',
         },
         {
@@ -78,15 +81,28 @@ module.exports = env => {
       }),
       new BundleAnalyzerPlugin()
     );
-    config.devtool = 'hidden-source-map';
+    delete config.devServer;
+    delete config.devtool;
+    config.entry = { app: resolve(__dirname, 'app/index.jsx') };
     config.output.pathinfo = false;
     config.stats.chunks = false;
-    config.entry.app = resolve(__dirname, 'app/index.jsx');
-    delete config.devServer;
+    config.resolve.alias = {
+      react: 'preact-compat',
+      'react-dom': 'preact-compat',
+    };
+  }
+  // Serverside Rendering configurations
+  if (env.devnode) {
+    config.entry = {
+      app: [
+        'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+        resolve(__dirname, 'app/index.jsx'),
+      ],
+    };
   }
   // Development configurations
   if (env.dev) {
-    config.plugins.push(
+    config.plugins.unshift(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NamedModulesPlugin()
     );

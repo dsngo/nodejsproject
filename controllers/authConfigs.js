@@ -1,10 +1,12 @@
-const app = require('express')();
-const passport = require('passport');
-const LocalStrategy = require('passport-local');
-const flash = require('express-flash');
-const methodOverride = require('method-override')('_method');
+const {
+  app,
+  flash,
+  session,
+  passport,
+  LocalStrategy,
+  methodOverride,
+} = require('./handleVars');
 const User = require('../models/User');
-const session = require('express-session');
 
 const SECRET_KEY = 'ASHDKJASwhdiuashdflia3qwalkhfQAFaf243raoshas6ka38kashdf298';
 const sessionConfig = session({

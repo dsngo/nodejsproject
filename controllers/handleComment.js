@@ -23,8 +23,10 @@ const checkCommentOwnership = async (rq, rs, next) => {
 const renderCreateComment = async (rq, rs) => {
   try {
     const foundBlog = await Blog.findById(rq.params.id);
-    const { _id: id, title } = foundBlog;
-    return rs.render('comments/new', { id, title });
+    return rs.render('comments/new', {
+      _id: foundBlog._id,
+      title: foundBlog.title,
+    });
   } catch (err) {
     rq.flash('error', 'Permission denied');
     return rs.redirect('back');

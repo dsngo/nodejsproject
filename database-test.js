@@ -1,7 +1,6 @@
 /* eslint no-console:0 */
 const Blog = require('./models/Blog');
 const Comment = require('./models/Comment');
-
 const dbConfig = require('./controllers/databaseConfigs');
 
 dbConfig();
@@ -49,12 +48,13 @@ const seedDB = async () => {
   console.log('remove blogs and comments');
   return addSeeds();
 };
-
-async function test() {
-  const testId = '595c599dc784ae239c47523e';
-  const blog = await Blog.findById(testId).populate('comments');
-  console.log(blog);
-}
-
 // seedDB();
-test().catch(console.log);
+
+// async function test() {
+//   const testId = '595c599dc784ae239c47523e';
+//   const blog = await Blog.findById(testId).populate('comments');
+//   console.log(blog);
+// }
+
+// test().catch(console.log);
+module.exports = seedDB;

@@ -20,7 +20,20 @@
   ],
   "plugins": [
     ["react-hot-loader/babel"],
+    ["babel-plugin-syntax-dynamic-import"],
+    ["babel-plugin-dynamic-import-webpack"],
     ["transform-class-properties"],
-    ["transform-object-rest-spread", { "useBuiltIns": true }]
+    ["transform-object-rest-spread", { "useBuiltIns": true }],
+    ["transform-react-jsx", { "pragma": "h" }],
+    [
+      "module-resolver",
+      {
+        "root": ["."],
+        "alias": {
+          "react": "preact-compat",
+          "react-dom": "preact-compat"
+        }
+      }
+    ]
   ]
 }
