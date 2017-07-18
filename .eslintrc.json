@@ -27,6 +27,8 @@
       {
         "order": [
           "type-annotations",
+          "component",
+          "state",
           "static-methods",
           "lifecycle",
           "everything-else",
